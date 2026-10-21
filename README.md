@@ -1,47 +1,73 @@
-Sparta Barbearia 
-Autores: Marlon Gabriel Alves Ferreira e Erick Rafael Passos
-Tema: Barbearia Profissional de Elite
-Disciplina: Linguagem de Programação para a Web (LPW) - 2026/2
- Apresentação do Tema
-A Sparta Barbearia é a convergência entre a tradição milenar da navalha e o visagismo moderno. Localizada no coração de Guarapuava, na Avenida XV de Novembro, nº 9876, o projeto foi desenvolvido para oferecer uma plataforma de agendamento e catálogo de produtos que exala autoridade e disciplina. Com uma identidade visual Black & Gold, o site foca na experiência do "guerreiro moderno", unindo estética de alto padrão a uma navegação técnica impecável.
- Diário de Bordo e Evolução Técnica (Log de Desenvolvimento)
-06/08/2026 — O Nascimento do Guerreiro
-Definição de Escopo: Brainstorming focado em estética masculina espartana.
-Git & GitHub: Inicialização do repositório local e publicação do primeiro commit estrutural utilizando comandos de terminal
-.
-08/08/2026 — Estruturação Semântica Avançada
-HTML5 Semântico: Implementação de tags como <header>, <nav>, <main>, <section> e <footer> para garantir acessibilidade e SEO
-.
-Hierarquia: Organização rigorosa de títulos (<h1> a <h3>) para clareza de conteúdo
-.
-12/08/2026 — Layout Moderno com Flexbox
-Alinhamento: Uso da propriedade display: flex para organizar o menu e alinhar elementos do cabeçalho de forma responsiva
-.
-Distribuição: Aplicação de justify-content: space-between e gap para espaçamentos harmônicos
-.
-14/08/2026 — Interatividade e Formulários
-Coleta de Dados: Criação do formulário de agendamento utilizando o método POST
-.
-Foco no Cliente: Adição de inputs especializados como type="tel" para WhatsApp, otimizando o uso em dispositivos móveis [28, Histórico].
-18/08/2026 — Upgrade Visual
-Bootstrap 5: Integração do framework via CDN para acelerar a responsividade e o padrão visual
-.
-UI/UX Refinado: Uso de Google Fonts (Montserrat) e paleta de cores restrita para manter a sobriedade da marca [44, Histórico].
-22/08/2026 — Expansão de Conteúdo e Storytelling
-História da Marca: Inclusão da seção "O Legado", contando o propósito de Marlon e Erick na barbearia [Histórico].
-Novos Rituais: Implementação de serviços de Barboterapia, Laserterapia para Calvície e Camuflagem de fios brancos [Histórico].
-Prova Social: Criação de um feed do Instagram simulado com grid de imagens para vender a ideia visual da marca [Histórico].
-24/08/2026 — Refinamento Técnico e Entrega Final
-Ajuste de Imagens: Correção de desalinhamento no "Arsenal" e "Rituais" utilizando Box Model e a propriedade object-fit: cover, garantindo que fotos não fiquem distorcidas [13, Histórico].
-Correção de Topo: Refatoração do cabeçalho para que a linha dourada atravesse 100% da largura da página em qualquer monitor [Histórico].
-Otimização de Contato: Simplificação do formulário para capturar apenas Nome, WhatsApp e Mensagem, focando na conversão rápida [Histórico].
-Conexão Segura: Configuração final do Git via CMD com geração de chave SSH para envio definitivo ao repositório público [43, Histórico].
- Tecnologias e Conceitos Aplicados
-HTML5: Tags semânticas, tabelas de horários e formulários complexos
-.
-CSS3: Flexbox para alinhamentos, CSS Grid para o feed social e Box Model para controle de espaço
-.
-Bootstrap 5: Sistema de grid responsivo e componentes de Cards de produtos
-.
-Git & GitHub: Versionamento total, documentação em Markdown e publicação na nuvem
-.
+# Urban Cut Barbearia
+
+**Autores:** Marlon Gabriel Alves Ferreira e Erick Rafael Passos  
+**Tema:** Barbearia Profissional de Elite & Visagismo Urbano  
+**Disciplina:** Linguagem de Programação para a Web (LPW) — 2026/2  
+**Localização:** Avenida XV de Novembro / Rua Saldanha Marinho, 1420 - Centro, Guarapuava - PR  
+
+---
+
+## ✂️ Apresentação do Projeto
+
+A **Urban Cut Barbearia** é a convergência entre a tradição clássica da navalha e o visagismo moderno de alto padrão. O sistema foi desenvolvido com arquitetura **Clean Code** e foco em **Design UX**, operando tanto para os clientes quanto para a gestão do negócio em duas frentes integradas:
+
+1. **Portal do Cliente:** Experiência moderna para visualização de serviços, vitrine de cosméticos masculinos e **agendamento online com calendário interativo**, verificação de horários disponíveis em tempo real e emissão instantânea de comprovante.
+2. **Painel do Proprietário (`dashboard.html`):** Centro de inteligência do gestor com métricas (KPIs de faturamento, total de atendimentos, ticket médio), agenda em tempo real com controle de status (*Confirmado*, *Concluído*, *Cancelado*) e histórico de produtos reservados.
+
+---
+
+## 🚀 Arquitetura Técnica & Clean Code
+
+O projeto opera de forma 100% autônoma e offline em `localhost`, utilizando armazenamento e sincronização via `localStorage`:
+
+* **`UrbanStorage`:** Gerenciador central de persistência para agendamentos e vendas, incluindo rotina de carga de dados demonstrativos (*seed data*).
+* **`CalendarEngine`:** Gerador dinâmico de horários (09h00 às 19h30), validação de indisponibilidade por profissional (*Marlon Gabriel* ou *Erick Rafael*) e prevenção de agendamentos em horários já ocupados.
+* **`CartEngine`:** Gerenciamento reativo da sacola de compras, filtros por categoria de produto sem recarregar a tela e cálculo automático de totais.
+* **`DashboardEngine`:** Algoritmo que calcula faturamento total, ticket médio e taxa de distribuição dos serviços mais procurados da barbearia.
+* **`NotificationSystem`:** Toasts flutuantes para feedback visual imediato ao usuário.
+
+---
+
+## 📁 Estrutura de Arquivos
+
+```text
+Urban Cut Barbearia/
+├── logo.svg              # Logotipo vetorial em ouro e preto de alta resolução
+├── index.html            # Portal do Cliente, Apresentação e Calendário de Horários
+├── procedimentos.html    # Menu detalhado de serviços e experiências
+├── produtos.html         # Vitrine de cosméticos com filtros e sacola de reservas
+├── dashboard.html        # Painel do Proprietário com métricas e gestão
+├── style.css             # Design System com tokens, variáveis CSS e efeitos glassmorphism
+├── script.js             # Motor JavaScript unificado em arquitetura modular
+└── README.md             # Documentação do projeto
+```
+
+---
+
+## 💻 Como Rodar em Localhost
+
+Você pode executar o projeto de várias formas simples:
+
+### Opção 1: VS Code (Live Server)
+1. Abra a pasta `Urban Cut Barbearia` no Visual Studio Code.
+2. Clique com o botão direito em `index.html` e selecione **"Open with Live Server"**.
+
+### Opção 2: Servidor Python Local
+No terminal aberto na pasta do projeto, execute:
+```bash
+python -m http.server 3000
+```
+Em seguida, abra no navegador: `http://localhost:3000`
+
+### Opção 3: Execução Direta
+Dê dois cliques no arquivo `index.html` para abrir diretamente no seu navegador preferido.
+
+---
+
+## 🎨 Paleta de Cores & Design Tokens
+
+* **Fundo Principal:** `#0A0B0E` (Preto Profundo)
+* **Superfícies & Cards:** `#101217` e `#141720`
+* **Dourado Nobre (Accent):** `#E2B13C`
+* **Bordas & Linhas:** `#232838`
+* **Tipografia:** Google Fonts *Montserrat*
