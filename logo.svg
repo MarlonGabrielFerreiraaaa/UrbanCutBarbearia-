@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FCE08B" />
+      <stop offset="50%" stop-color="#E2B13C" />
+      <stop offset="100%" stop-color="#9C731A" />
+    </linearGradient>
+    <filter id="goldGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Círculo de fundo estilizado -->
+  <circle cx="100" cy="100" r="92" fill="#14161D" stroke="url(#goldGrad)" stroke-width="4" />
+  <circle cx="100" cy="100" r="85" fill="none" stroke="#E2B13C" stroke-width="1.2" stroke-dasharray="4,3" opacity="0.6" />
+
+  <!-- Detalhes de Estrelas Laterais -->
+  <polygon points="32,100 35,93 42,93 36,88 38,81 32,85 26,81 28,88 22,93 29,93" fill="url(#goldGrad)" />
+  <polygon points="168,100 171,93 178,93 172,88 174,81 168,85 162,81 164,88 158,93 165,93" fill="url(#goldGrad)" />
+
+  <!-- Tesoura Estilizada (Canto Esquerdo) -->
+  <g transform="translate(100,85) rotate(-28) translate(-100,-85)" stroke="url(#goldGrad)" stroke-width="3" fill="none" stroke-linecap="round">
+    <!-- Lâmina -->
+    <path d="M100,85 L80,38 Q83,36 86,40 L100,85" fill="url(#goldGrad)" />
+    <!-- Cabo e Olhal -->
+    <path d="M100,85 L114,125" />
+    <circle cx="118" cy="133" r="10" stroke-width="3" />
+  </g>
+
+  <!-- Navalha Estilizada (Canto Direito) -->
+  <g transform="translate(100,85) rotate(28) translate(-100,-85)" stroke="url(#goldGrad)" stroke-width="3" fill="none" stroke-linecap="round">
+    <!-- Lâmina reta clássica -->
+    <path d="M100,85 L120,38 L114,35 L96,80 Z" fill="url(#goldGrad)" />
+    <!-- Cabo com detalhe -->
+    <path d="M100,85 L86,125" />
+    <circle cx="82" cy="133" r="10" stroke-width="3" />
+  </g>
+
+  <!-- Parafuso central dourado -->
+  <circle cx="100" cy="85" r="4.5" fill="#FFFFFF" stroke="url(#goldGrad)" stroke-width="2" />
+
+  <!-- Faixa de Texto Superior -->
+  <path id="curveTop" d="M 45,62 A 65,65 0 0,1 155,62" fill="none" />
+  <text font-family="'Montserrat', sans-serif" font-size="11" font-weight="800" fill="#E2B13C" letter-spacing="3" text-anchor="middle">
+    <textPath href="#curveTop" startOffset="50%">EST. 2026</textPath>
+  </text>
+
+  <!-- Tipografia Inferior -->
+  <text x="100" y="160" font-family="'Montserrat', sans-serif" font-size="13" font-weight="900" fill="#FFFFFF" letter-spacing="3" text-anchor="middle">URBAN <tspan fill="#E2B13C">CUT</tspan></text>
+  <text x="100" y="174" font-family="'Montserrat', sans-serif" font-size="7.5" font-weight="600" fill="#8E95A5" letter-spacing="2" text-anchor="middle">BARBEARIA &amp; VISAGISMO</text>
+</svg>

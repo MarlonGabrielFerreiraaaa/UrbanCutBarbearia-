@@ -1,188 +1,295 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sparta Barbearia | O Legado em Guarapuava</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <header>
-      <div class="header-content">
-        <div class="logo">
-          <h1>SPARTA<span>.</span></h1>
-        </div>
-        <nav>
-          <ul class="nav">
-            <li><a href="index.html">Início</a></li>
-            <li><a href="procedimentos.html">Rituais</a></li>
-            <li><a href="produtos.html">Arsenal</a></li>
-          </ul>
-        </nav>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Urban Cut Barbearia | Studio & Visagismo</title>
+  
+  <!-- Fontes & Ícones -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <!-- Bootstrap 5 & Estilos Customizados -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Cabeçalho Principal (Navegação & Troca de Portal) -->
+  <header class="urban-header">
+    <div class="container d-flex justify-content-between align-items-center py-3">
+      <a href="index.html" class="logo-link d-flex align-items-center gap-3">
+        <img src="logo.svg" alt="Logo Urban Cut Barbearia" class="logo-img" />
+        <h1 class="brand-title m-0 text-white">URBAN<span>CUT</span></h1>
+      </a>
+
+      <!-- Menu Central -->
+      <nav class="d-none d-md-block">
+        <ul class="nav gap-1">
+          <li><a href="index.html" class="nav-link nav-link-custom active">Início</a></li>
+          <li><a href="procedimentos.html" class="nav-link nav-link-custom">Serviços</a></li>
+          <li><a href="produtos.html" class="nav-link nav-link-custom">Produtos</a></li>
+          <li><a href="#agendamento" class="nav-link nav-link-custom text-accent">Agendar Online</a></li>
+        </ul>
+      </nav>
+
+      <!-- Acesso ao Painel do Proprietário -->
+      <div class="d-flex align-items-center gap-2">
+        <a href="dashboard.html" class="badge-portal-switch" title="Acesse métricas, faturamento e agenda">
+          <i class="bi bi-speedometer2"></i>
+          <span>Painel do Proprietário</span>
+        </a>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <main>
-      <section
-        class="hero d-flex align-items-center justify-content-center text-center"
-      >
-        <div class="container">
-          <h2 class="display-1 fw-bold text-white">FORÇA, HONRA E NAVALHA</h2>
-          <p class="lead text-white px-md-5">
-            Elevando a estética masculina ao padrão de elite espartano em
-            Guarapuava.
+  <main>
+    <!-- Seção Hero -->
+    <section class="hero-section text-center">
+      <div class="container">
+        <span class="hero-badge text-uppercase tracking-wider mb-3 d-inline-block">
+          <i class="bi bi-gem me-1"></i> Estética Masculina &amp; Visagismo Urbano
+        </span>
+        <h2 class="display-3 fw-bold text-white mb-3 mt-2">URBAN CUT BARBEARIA</h2>
+        <p class="lead text-secondary mx-auto col-md-8 mb-4">
+          Corte estilizado, barboterapia de alta performance e consultoria visual sob medida no centro de Guarapuava.
+        </p>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+          <a href="#agendamento" class="btn btn-urban px-4 py-3 fw-bold">
+            <i class="bi bi-calendar-event me-1"></i> ESCOLHER HORÁRIO DISPONÍVEL
+          </a>
+          <a href="procedimentos.html" class="btn btn-urban-outline px-4 py-3 fw-bold">
+            <i class="bi bi-scissors me-1"></i> VER SERVIÇOS &amp; PREÇOS
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção O Conceito -->
+    <section id="sobre" class="container py-5">
+      <div class="row align-items-center g-5">
+        <div class="col-md-6">
+          <span class="hero-badge text-uppercase tracking-wider mb-2 d-inline-block">Tradição &amp; Inovação</span>
+          <h2 class="display-5 fw-bold text-white mb-4">O Conceito Urban Cut</h2>
+          <p class="text-secondary fs-5">
+            A <strong>Urban Cut Barbearia</strong> nasceu para unir a essência clássica da navalha ao visagismo contemporâneo de alto padrão.
           </p>
-          <a href="#agendamento" class="btn-sparta">CONVOCAR BARBEIRO</a>
-        </div>
-      </section>
-
-      <section id="historia" class="container py-5">
-        <div class="row align-items-center">
-          <div class="col-md-6">
-            <h2 class="text-gold fw-bold mb-4">O Legado de Elite</h2>
-            <p>
-              Fundada por Marlon e Erick, a Sparta Barbearia nasceu para
-              resgatar o rigor e a disciplina espartana na estética masculina.
-            </p>
-            <p>
-              Unimos a técnica clássica de herança ao visagismo moderno, criando
-              um refúgio para o guerreiro contemporâneo.
-            </p>
-          </div>
-          <div class="col-md-6">
-            <img
-              src="https://classic.exame.com/wp-content/uploads/2020/05/whatsapp-image-2020-05-12-at-10.47.30.jpg?ims=1200x900"
-              alt="Interior da Barbearia Sparta"
-              class="img-fluid rounded border-gold shadow"
-            />
-          </div>
-        </div>
-      </section>
-
-      <section id="localizacao" class="bg-black py-5">
-        <div class="container">
-          <h2 class="titulo-secao">Nossa Base Operacional</h2>
-          <div class="row g-4 mt-2">
-            <div
-              class="col-md-4 text-white d-flex flex-column justify-content-center"
-            >
-              <h3 class="text-gold">Centro de Guarapuava</h3>
-              <p class="fs-5">
-                Avenida XV de Novembro, nº 9876<br />Centro - Guarapuava, PR
-              </p>
-              <a
-                href="https://maps.google.com"
-                target="_blank"
-                class="btn btn-outline-warning mt-3"
-                >VER NO GPS</a
-              >
+          <p class="text-secondary">
+            Nosso espaço foi cuidadosamente desenhado para proporcionar um momento de pausa, conforto e renovação de imagem, com atendimento pontual e bebidas cortesia no lounge.
+          </p>
+          
+          <div class="row g-3 mt-4">
+            <div class="col-sm-6">
+              <div class="card-urban p-3 h-100">
+                <div class="d-flex align-items-center gap-2 mb-1">
+                  <i class="bi bi-check-circle-fill text-accent fs-5"></i>
+                  <h5 class="text-white fw-bold m-0 fs-6">Visagismo <span class="text-accent">Facial</span></h5>
+                </div>
+                <p class="m-0 small ps-4" style="color: #cbd5e1 !important; line-height: 1.4;">
+                  Harmonização personalizada de corte e barba.
+                </p>
+              </div>
             </div>
-            <div class="col-md-8">
-              <div class="mapa-container border-gold">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3604.288258525048!2d-51.464627!3d-25.393456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDIzJzM2LjQiUyA1McKwMjcnNTIuNyJX!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr"
-                  width="100%"
-                  height="350"
-                  style="border: 0"
-                  allowfullscreen=""
-                  loading="lazy"
-                ></iframe>
+            <div class="col-sm-6">
+              <div class="card-urban p-3 h-100">
+                <div class="d-flex align-items-center gap-2 mb-1">
+                  <i class="bi bi-cup-hot-fill text-accent fs-5"></i>
+                  <h5 class="text-white fw-bold m-0 fs-6">Lounge <span class="text-accent">Exclusivo</span></h5>
+                </div>
+                <p class="m-0 small ps-4" style="color: #cbd5e1 !important; line-height: 1.4;">
+                  Conforto com café cortesia &amp; drinks especiais.
+                </p>
               </div>
             </div>
           </div>
         </div>
-      </section>
 
-      <section id="social" class="container py-5">
-        <h2 class="titulo-secao">Siga o Arsenal @SpartaGpuava</h2>
-        <div class="row row-cols-2 row-cols-md-4 g-3 mt-4">
-          <article class="col">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsj6r0ptuJjSei8qVApJD4MMRiNQ6mlkhL1Sw8QPCK9bLad1OuNOq9AYo&s=10"
-              class="img-insta"
-              alt="Post 1"
-            />
-          </article>
-          <article class="col">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvjL8Gde5utE75VvfRVJLiaJ3ssIN-4OLMeT0FDV5qaNQPHvfqfxZ1xKoS&s=10"
-              class="img-insta"
-              alt="Post 2"
-            />
-          </article>
-          <article class="col">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFoMMi8mliwp8BnD0n5uhpQDymHgmWn6NvihMgKlTf5WW_36wkXUjBPuc&s=10"
-              class="img-insta"
-              alt="Post 3"
-            />
-          </article>
-          <article class="col">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFuOLb9z37ml0d2gcL9HQl8Y1KAHzcWEO6SAJGXeqwUQ&s"
-              class="img-insta"
-              alt="Post 4"
-            />
-          </article>
+        <div class="col-md-6 text-center">
+          <img src="images/ambiente.jpg" alt="Ambiente Urban Cut Barbearia" class="img-ambiente-cut shadow-lg" />
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section id="agendamento" class="py-5 bg-black">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-6">
-              <div class="form-container p-5 border-gold shadow-lg">
-                <h2 class="text-gold text-center mb-4">Agendar Batalha</h2>
-                <form action="#" method="POST">
-                  <div class="mb-3">
-                    <label class="form-label text-white"
-                      >Nome do Guerreiro:</label
-                    >
-                    <input
-                      type="text"
-                      name="nome"
-                      class="form-control bg-dark text-white border-secondary"
-                      required
-                    />
+    <!-- Seção de Agendamento Interativo (Portal do Cliente) -->
+    <section id="agendamento" class="py-5" style="background-color: var(--urban-surface); border-top: 1px solid var(--urban-border); border-bottom: 1px solid var(--urban-border);">
+      <div class="container">
+        
+        <div class="text-center mb-5">
+          <span class="hero-badge text-uppercase tracking-wider mb-2 d-inline-block">Autoatendimento Rápido</span>
+          <h2 class="display-5 fw-bold text-white mb-2">Agendamento &amp; Disponibilidade</h2>
+          <p class="lead text-secondary mx-auto col-md-7">
+            Consulte os horários vagos em tempo real e garanta sua cadeira com o barbeiro de sua preferência.
+          </p>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-lg-10">
+            <div class="booking-container p-4 p-md-5">
+              
+              <form id="formAgendamento">
+                
+                <!-- Etapa 1: Escolha do Barbeiro -->
+                <div class="mb-4">
+                  <label class="form-label text-white fw-bold mb-3 d-flex align-items-center">
+                    <span class="step-number">1</span> Escolha o Barbeiro
+                  </label>
+                  <div class="barber-selector">
+                    <div class="barber-card selected" data-barbeiro="Marlon Gabriel">
+                      <div class="barber-avatar"><i class="bi bi-person-fill"></i></div>
+                      <strong class="text-white d-block">Marlon Gabriel</strong>
+                      <small class="text-accent">Master Visagista</small>
+                    </div>
+                    <div class="barber-card" data-barbeiro="Erick Rafael">
+                      <div class="barber-avatar"><i class="bi bi-person-badge-fill"></i></div>
+                      <strong class="text-white d-block">Erick Rafael</strong>
+                      <small class="text-accent">Especialista Navalha</small>
+                    </div>
                   </div>
-                  <div class="mb-3">
-                    <label class="form-label text-white">WhatsApp:</label>
-                    <input
-                      type="tel"
-                      name="whatsapp"
-                      class="form-control bg-dark text-white border-secondary"
-                      placeholder="(42) 99999-9999"
-                      required
-                    />
+                </div>
+
+                <!-- Etapa 2: Escolha do Serviço -->
+                <div class="mb-4">
+                  <label for="servicoDesejado" class="form-label text-white fw-bold mb-2 d-flex align-items-center">
+                    <span class="step-number">2</span> Selecione o Serviço Desejado
+                  </label>
+                  <select id="servicoDesejado" class="form-select input-urban" required>
+                    <option value="Corte Urban & Visagismo" selected>Corte Urban &amp; Visagismo (R$ 65,00)</option>
+                    <option value="Barboterapia Ritual">Barboterapia Ritual com Toalha Quente (R$ 55,00)</option>
+                    <option value="Tratamento Capilar Fortificante">Tratamento Capilar Fortificante (R$ 50,00)</option>
+                    <option value="Combo Urban (Corte + Barba)">Combo Urban Completo: Corte + Barboterapia (R$ 105,00)</option>
+                  </select>
+                </div>
+
+                <!-- Etapa 3: Escolha da Data & Horário Interativo -->
+                <div class="mb-4">
+                  <label for="dataAgendamento" class="form-label text-white fw-bold mb-2 d-flex align-items-center">
+                    <span class="step-number">3</span> Escolha a Data &amp; Horário Disponível
+                  </label>
+                  <div class="row g-3 align-items-center mb-3">
+                    <div class="col-md-5">
+                      <input type="date" id="dataAgendamento" class="form-control input-urban" required />
+                    </div>
+                    <div class="col-md-7 text-secondary small">
+                      <i class="bi bi-info-circle text-accent me-1"></i> Selecione um dos horários livres abaixo:
+                    </div>
                   </div>
-                  <div class="mb-3">
-                    <label class="form-label text-white">Mensagem:</label>
-                    <textarea
-                      name="mensagem"
-                      class="form-control bg-dark text-white border-secondary"
-                      rows="3"
-                      required
-                    ></textarea>
+
+                  <!-- Grade Interativa de Horários -->
+                  <div id="gradeHorarios" class="slots-grid mb-2">
+                    <!-- Gerado dinamicamente pelo script.js com status livre/ocupado -->
                   </div>
-                  <button type="submit" class="btn-sparta w-100 border-0">
-                    CONFIRMAR AGENDAMENTO
-                  </button>
-                </form>
+                </div>
+
+                <!-- Etapa 4: Dados Pessoais do Cliente -->
+                <div class="mb-4">
+                  <label class="form-label text-white fw-bold mb-2 d-flex align-items-center">
+                    <span class="step-number">4</span> Seus Dados de Contato
+                  </label>
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <input type="text" id="nomeCliente" class="form-control input-urban" placeholder="Seu Nome Completo" required />
+                    </div>
+                    <div class="col-md-6">
+                      <input type="tel" id="whatsappCliente" class="form-control input-urban" placeholder="WhatsApp: (XX) 9XXXX-XXXX" required />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Resumo do Agendamento (Ticket / Comprovante) -->
+                <div class="booking-summary-box mb-4">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="text-secondary small text-uppercase">Resumo da Reserva</span>
+                    <span class="badge bg-warning text-dark fw-bold">Confirmação Imediata</span>
+                  </div>
+                  <div class="row g-2 text-white">
+                    <div class="col-sm-6">
+                      <small class="text-muted d-block">Serviço:</small>
+                      <strong id="resumoServico">Corte Urban &amp; Visagismo</strong>
+                    </div>
+                    <div class="col-sm-6">
+                      <small class="text-muted d-block">Barbeiro:</small>
+                      <strong id="resumoBarbeiro">Marlon Gabriel</strong>
+                    </div>
+                    <div class="col-sm-6">
+                      <small class="text-muted d-block">Data e Horário:</small>
+                      <strong id="resumoDataHora" class="text-accent">Selecione data e hora</strong>
+                    </div>
+                    <div class="col-sm-6">
+                      <small class="text-muted d-block">Valor Estimado:</small>
+                      <strong id="resumoValor" class="fs-5 text-accent">R$ 65,00</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Botão de Confirmação -->
+                <button type="submit" class="btn btn-urban w-100 py-3 fs-5 fw-bold shadow">
+                  <i class="bi bi-calendar2-check-fill me-2"></i> CONFIRMAR MEU AGENDAMENTO
+                </button>
+              </form>
+
+              <!-- Caixa de Confirmação Imediata -->
+              <div id="mensagemConfirmacao" class="mt-4 p-4 rounded-3 border border-success bg-dark d-none">
+                <p class="m-0 text-white" id="textoConfirmacao"></p>
               </div>
+
             </div>
           </div>
         </div>
-      </section>
-    </main>
 
-    <footer class="text-center py-4 border-top border-secondary">
-      <p class="m-0 text-secondary">
-        Sparta Barbearia &copy; 2026 | Marlon Gabriel e Erick Rafael
-      </p>
-    </footer>
-  </body>
+      </div>
+    </section>
+
+    <!-- Localização e Contato -->
+    <section id="localizacao" class="py-5">
+      <div class="container">
+        <div class="row g-4 align-items-center">
+          <div class="col-md-4 text-white">
+            <span class="hero-badge text-uppercase tracking-wider mb-2 d-inline-block">Onde Estamos</span>
+            <h3 class="text-accent h3 fw-bold mb-3">Unidade Guarapuava</h3>
+            <p class="text-secondary fs-5 mb-1">Rua Saldanha Marinho, nº 1420</p>
+            <p class="text-secondary mb-3">Centro - Guarapuava, PR<br />CEP: 85010-000</p>
+            <p class="small text-muted mb-4"><i class="bi bi-geo-alt-fill text-danger me-1"></i> Próximo ao Parque do Lago</p>
+            <a href="https://maps.google.com" target="_blank" class="btn btn-urban-outline btn-urban-sm">
+              <i class="bi bi-map-fill me-1"></i> ABRIR NO GOOGLE MAPS
+            </a>
+          </div>
+          <div class="col-md-8">
+            <div class="rounded-4 overflow-hidden border border-secondary shadow-lg">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3604.288258525048!2d-51.464627!3d-25.393456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDIzJzM2LjQiUyA1McKwMjcnNTIuNyJX!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr" 
+                width="100%" 
+                height="320" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy">
+              </iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Rodapé -->
+  <footer class="urban-footer text-center">
+    <div class="container">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+        <p class="m-0 text-secondary small">
+          Urban Cut Barbearia &copy; 2026 | Todos os direitos reservados.
+        </p>
+        <div class="d-flex gap-3">
+          <a href="dashboard.html" class="text-secondary text-decoration-none small hover-accent">
+            <i class="bi bi-shield-lock me-1"></i> Painel do Proprietário
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
 </html>

@@ -1,0 +1,760 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apresentação: Urban Cut Barbearia | LPW 2026</title>
+  
+  <!-- Fontes & Ícones -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <style>
+    @page {
+      size: A4 landscape;
+      margin: 0;
+    }
+
+    :root {
+      --bg: #0a0b0e;
+      --surface: #101217;
+      --card: #141720;
+      --border: #232838;
+      --accent: #e2b13c;
+      --accent-glow: rgba(226, 177, 60, 0.3);
+      --text: #f3f5f9;
+      --text-muted: #8e95a5;
+    }
+
+    * { box-sizing: border-box; }
+    
+    html, body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+    }
+
+    /* Barra Superior de Progresso */
+    .slide-progress-bar {
+      height: 4px;
+      background: var(--surface);
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 2000;
+    }
+    .slide-progress-fill {
+      height: 100%;
+      background: var(--accent);
+      width: 12.5%;
+      transition: width 0.3s ease;
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    /* Container de Apresentação */
+    .slides-viewport {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 40px;
+    }
+
+    /* O Slide em Formato 16:9 Widescreen */
+    .slide {
+      position: absolute;
+      width: 95%;
+      max-width: 1320px;
+      height: 85vh;
+      max-height: 740px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px 42px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.98);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.85);
+      overflow: hidden;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1);
+      z-index: 10;
+    }
+
+    /* Tipografia de Apresentação */
+    .slide-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(226, 177, 60, 0.12);
+      border: 1px solid rgba(226, 177, 60, 0.3);
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      padding: 5px 12px;
+      border-radius: 9999px;
+      margin-bottom: 6px;
+    }
+
+    .slide-title {
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 4px;
+      letter-spacing: -0.5px;
+    }
+
+    .slide-subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+    }
+
+    /* Caixas de Código Estilizadas */
+    .code-box {
+      background: #08090c;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.8rem;
+      color: #d1d5db;
+      overflow-x: hidden;
+      line-height: 1.45;
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.7);
+    }
+    .code-keyword { color: #f472b6; font-weight: bold; }
+    .code-var { color: #60a5fa; }
+    .code-func { color: #facc15; }
+    .code-string { color: #34d399; }
+    .code-comment { color: #6b7280; font-style: italic; }
+
+    /* Cards e Grid Interno */
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+      height: 100%;
+      transition: border-color 0.2s ease;
+    }
+    .feature-card:hover {
+      border-color: var(--accent);
+    }
+
+    /* Barra de Navegação Inferior */
+    .slide-footer-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 40px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      z-index: 1000;
+      height: 52px;
+    }
+
+    .btn-slide-nav {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-weight: 600;
+      border-radius: 8px;
+      padding: 6px 16px;
+      font-size: 0.88rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .btn-slide-nav:hover {
+      background: var(--accent);
+      color: #000;
+      border-color: var(--accent);
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+
+    /* ==========================================================================
+       CONFIGURAÇÃO DE IMPRESSÃO / EXPORTAÇÃO EM PDF (LANDSCAPE A4 PERFEITO)
+       ========================================================================== */
+    @media print {
+      html, body {
+        width: 297mm !important;
+        height: 210mm !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #0a0b0e !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        overflow: visible !important;
+      }
+
+      .slide-progress-bar, .slide-footer-controls {
+        display: none !important;
+      }
+
+      .slides-viewport {
+        display: block !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 297mm !important;
+        height: auto !important;
+      }
+
+      .slide {
+        position: relative !important;
+        width: 297mm !important;
+        height: 210mm !important;
+        min-height: 210mm !important;
+        max-height: 210mm !important;
+        max-width: 297mm !important;
+        box-sizing: border-box !important;
+        margin: 0 !important;
+        padding: 16mm 22mm !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        background-color: #141720 !important;
+        overflow: hidden !important;
+      }
+
+      .slide-title {
+        font-size: 1.85rem !important;
+      }
+      .code-box {
+        font-size: 0.74rem !important;
+        padding: 10px 14px !important;
+        line-height: 1.35 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra de Progresso Superior -->
+  <div class="slide-progress-bar">
+    <div class="slide-progress-fill" id="progressFill"></div>
+  </div>
+
+  <!-- Viewport dos Slides -->
+  <div class="slides-viewport">
+
+    <!-- ==========================================
+         SLIDE 1: CAPA DO PROJETO
+         ========================================== -->
+    <div class="slide active" data-slide="1">
+      <div>
+        <span class="slide-badge"><i class="bi bi-shield-check"></i> LPW 2026/2 • Apresentação de Projeto</span>
+        <h1 class="slide-title display-5" style="color: #ffffff;">URBAN <span style="color: var(--accent);">CUT</span> BARBEARIA</h1>
+        <p class="slide-subtitle fs-5">Plataforma Web com Agendamento Inteligente &amp; Painel do Proprietário</p>
+      </div>
+
+      <div class="row g-3 align-items-center my-auto">
+        <div class="col-md-7">
+          <div class="feature-card p-3">
+            <h5 class="text-white fw-bold mb-2 d-flex align-items-center gap-2">
+              <i class="bi bi-bullseye text-accent"></i> Escopo do Projeto
+            </h5>
+            <p class="text-secondary small mb-3">
+              Desenvolvimento de uma aplicação web responsiva para barbearia profissional de elite, estruturada com <strong>Clean Code</strong>, arquitetura modular em <strong>JavaScript puro</strong> e foco rigoroso em <strong>Design UX</strong>.
+            </p>
+            <div class="d-flex gap-2 flex-wrap">
+              <span class="badge bg-dark border border-secondary px-2.5 py-1.5 text-white small">HTML5 Semântico</span>
+              <span class="badge bg-dark border border-secondary px-2.5 py-1.5 text-white small">CSS3 / Tokens</span>
+              <span class="badge bg-dark border border-secondary px-2.5 py-1.5 text-accent small">JavaScript Vanilla</span>
+              <span class="badge bg-dark border border-secondary px-2.5 py-1.5 text-white small">LocalStorage API</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-5 text-center">
+          <div class="p-3 rounded-3 bg-dark border border-secondary">
+            <img src="logo.svg" alt="Logo Urban Cut" style="width: 80px; height: 80px; margin-bottom: 10px;" />
+            <h6 class="text-white fw-bold m-0">Marlon Gabriel Alves Ferreira</h6>
+            <h6 class="text-white fw-bold m-0 mt-1">Erick Rafael Passos</h6>
+            <small class="text-accent d-block mt-2">Linguagem de Programação para a Web</small>
+            <small class="text-muted d-block mt-0.5">Guarapuava - PR • 2026</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between text-muted small pt-2 border-top border-secondary">
+        <span>Urban Cut Barbearia &copy; 2026</span>
+        <span>Apresentação Técnica: Funcionalidades &amp; Decisões de UX</span>
+      </div>
+    </div>
+
+    <!-- ==========================================
+         SLIDE 2: 1. EXPLICAÇÃO GERAL DO SITE DESENVOLVIDO
+         ========================================== -->
+    <div class="slide" data-slide="2">
+      <div>
+        <span class="slide-badge"><i class="bi bi-diagram-3"></i> Tópico 1</span>
+        <h2 class="slide-title">Explicação Geral do Site Desenvolvido</h2>
+        <p class="slide-subtitle">Solução completa com duas frentes conectadas pelo mesmo estado em tempo real.</p>
+      </div>
+
+      <div class="row g-3 my-auto">
+        <div class="col-md-6">
+          <div class="feature-card p-3" style="border-left: 4px solid var(--accent);">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <span class="fs-4 text-accent">👤</span>
+              <div>
+                <h5 class="text-white fw-bold m-0">Portal do Cliente</h5>
+                <small class="text-muted">index.html, procedimentos.html, produtos.html</small>
+              </div>
+            </div>
+            <p class="text-secondary small mb-2">
+              Interface intuitiva desenhada para conveniência e agilidade:
+            </p>
+            <ul class="text-secondary small d-flex flex-column gap-1 mb-0 ps-3">
+              <li><strong>Agendamento com Calendário:</strong> Escolha de barbeiro, data e horário.</li>
+              <li><strong>Catálogo de Procedimentos:</strong> Visagismo, barboterapia e combos.</li>
+              <li><strong>Vitrine com Sacola:</strong> Filtro de categorias e reserva de cosméticos.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="feature-card p-3" style="border-left: 4px solid #10b981;">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <span class="fs-4 text-success">📊</span>
+              <div>
+                <h5 class="text-white fw-bold m-0">Painel do Proprietário</h5>
+                <small class="text-muted">dashboard.html</small>
+              </div>
+            </div>
+            <p class="text-secondary small mb-2">
+              Ambiente analítico para o gestor ter controle sobre a operação:
+            </p>
+            <ul class="text-secondary small d-flex flex-column gap-1 mb-0 ps-3">
+              <li><strong>4 Indicadores KPIs:</strong> Faturamento, Clientes, Agendamentos e Ticket Médio.</li>
+              <li><strong>Agenda Operacional:</strong> Gestão de status (Confirmar/Concluir/Cancelar/Excluir).</li>
+              <li><strong>Gráficos de Serviços:</strong> Demanda e preferências da clientela.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-2.5 bg-dark rounded-3 border border-secondary small text-secondary">
+        💡 <strong>Arquitetura 100% Autônoma:</strong> Comunicação reativa entre as páginas via <code>localStorage</code>, operando sem falhas em <code>localhost</code> sem necessidade de infraestrutura externa.
+      </div>
+    </div>
+
+    <!-- ==========================================
+         SLIDE 3: 2. FUNCIONALIDADES — AGENDAMENTO INTELIGENTE
+         ========================================== -->
+    <div class="slide" data-slide="3">
+      <div>
+        <span class="slide-badge"><i class="bi bi-calendar2-check"></i> Tópico 2 • Funcionalidades</span>
+        <h2 class="slide-title">Agendamento &amp; Disponibilidade: <code>CalendarEngine</code></h2>
+        <p class="slide-subtitle">Prevenção ativa de conflitos de agenda através de verificação dinâmica.</p>
+      </div>
+
+      <div class="row g-3 align-items-center my-auto">
+        <div class="col-md-7">
+          <div class="code-box">
+<span class="code-comment">// 1. Filtra agendamentos para a mesma data e profissional</span>
+<span class="code-keyword">const</span> <span class="code-var">agendamentosNoDia</span> = agendamentos.<span class="code-func">filter</span>(<span class="code-var">item</span> =&gt; 
+  <span class="code-var">item</span>.data === <span class="code-keyword">this</span>.estado.data &amp;&amp; 
+  <span class="code-var">item</span>.barbeiro === <span class="code-keyword">this</span>.estado.barbeiro &amp;&amp;
+  <span class="code-var">item</span>.status !== <span class="code-string">'Cancelado'</span>
+);
+
+<span class="code-keyword">const</span> <span class="code-var">horariosOcupados</span> = <span class="code-var">agendamentosNoDia</span>.<span class="code-func">map</span>(<span class="code-var">i</span> =&gt; <span class="code-var">i</span>.hora);
+
+<span class="code-comment">// 2. Renderiza botões com estado: livre ou ocupado</span>
+<span class="code-keyword">if</span> (<span class="code-var">horariosOcupados</span>.<span class="code-func">includes</span>(<span class="code-var">hora</span>)) {
+  <span class="code-var">btn</span>.className = <span class="code-string">'slot-btn booked'</span>;
+  <span class="code-var">btn</span>.disabled = <span class="code-keyword">true</span>; <span class="code-comment">// Bloqueio de clique</span>
+} <span class="code-keyword">else</span> {
+  <span class="code-var">btn</span>.className = <span class="code-string">'slot-btn available'</span>;
+}
+          </div>
+        </div>
+
+        <div class="col-md-5">
+          <div class="feature-card p-3 d-flex flex-column gap-2">
+            <h6 class="text-white fw-bold m-0">Como Funciona na Prática:</h6>
+            <div class="small">
+              <strong class="text-accent d-block">1. Grade de Horários:</strong>
+              <span class="text-secondary">Gera 10 slots diários (09h00 às 19h30).</span>
+            </div>
+            <div class="small">
+              <strong class="text-accent d-block">2. Bloqueio Preventivo:</strong>
+              <span class="text-secondary">Horários ocupados ficam riscados e inativos.</span>
+            </div>
+            <div class="small">
+              <strong class="text-accent d-block">3. Emissão de Comprovante:</strong>
+              <span class="text-secondary">Gera ticket de confirmação imediato na tela.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-muted small border-top border-secondary pt-2">
+        Tecnologias: Métodos de Array (<code>filter</code>, <code>map</code>, <code>includes</code>) + Manipulação do DOM.
+      </div>
+    </div>
+
+    <!-- ==========================================
+         SLIDE 4: 2. FUNCIONALIDADES — PAINEL DO PROPRIETÁRIO
+         ========================================== -->
+    <div class="slide" data-slide="4">
+      <div>
+        <span class="slide-badge"><i class="bi bi-speedometer2"></i> Tópico 2 • Funcionalidades</span>
+        <h2 class="slide-title">Gestão &amp; Inteligência de Negócio: <code>DashboardEngine</code></h2>
+        <p class="slide-subtitle">Cálculo de métricas em tempo real e controle de atendimentos na barbearia.</p>
+      </div>
+
+      <div class="row g-3 align-items-center my-auto">
+        <div class="col-md-7">
+          <div class="code-box">
+<span class="code-comment">// 1. Soma da receita total (serviços ativos + vendas de produtos)</span>
+<span class="code-keyword">const</span> <span class="code-var">receitaServicos</span> = agendamentos
+  .<span class="code-func">filter</span>(<span class="code-var">a</span> =&gt; <span class="code-var">a</span>.status !== <span class="code-string">'Cancelado'</span>)
+  .<span class="code-func">reduce</span>((<span class="code-var">sum</span>, <span class="code-var">a</span>) =&gt; <span class="code-var">sum</span> + (<span class="code-func">parseFloat</span>(<span class="code-var">a</span>.valor) || <span class="code-string">0</span>), <span class="code-string">0</span>);
+
+<span class="code-comment">// 2. Deduplicação e contagem de clientes com Set</span>
+<span class="code-keyword">const</span> <span class="code-var">clientesUnicos</span> = <span class="code-keyword">new</span> <span class="code-func">Set</span>(agendamentos.<span class="code-func">map</span>(<span class="code-var">a</span> =&gt; <span class="code-var">a</span>.cliente.<span class="code-func">toLowerCase</span>()));
+
+<span class="code-comment">// 3. Ações no ciclo de atendimento</span>
+<span class="code-func">alterarStatus</span>(<span class="code-var">id</span>, <span class="code-var">novoStatus</span>) {
+  <span class="code-var">UrbanStorage</span>.<span class="code-func">updateAppointmentStatus</span>(<span class="code-var">id</span>, <span class="code-var">novoStatus</span>);
+  <span class="code-keyword">this</span>.<span class="code-func">atualizarTudo</span>(); <span class="code-comment">// Recalcula KPIs e redesenha tabela</span>
+}
+          </div>
+        </div>
+
+        <div class="col-md-5">
+          <div class="feature-card p-3 d-flex flex-column gap-2">
+            <h6 class="text-white fw-bold m-0">Métricas &amp; Controles:</h6>
+            <div class="small">
+              <strong class="text-accent">• KPIs em Tempo Real:</strong>
+              <span class="text-secondary d-block">Faturamento Bruto, Total de Agendamentos, Clientes Únicos e Ticket Médio.</span>
+            </div>
+            <div class="small">
+              <strong class="text-accent">• Gestão de Status:</strong>
+              <span class="text-secondary d-block">Marcar atendimentos como <em>Concluído</em>, <em>Confirmado</em>, <em>Cancelado</em> ou <em>Excluir</em>.</span>
+            </div>
+            <div class="small">
+              <strong class="text-accent">• Gráfico de Procedimentos:</strong>
+              <span class="text-secondary d-block">Distribuição percentual dos serviços mais procurados.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-muted small border-top border-secondary pt-2">
+        Destaques: Estrutura <code>Set</code> para eliminar duplicatas e agregação estatística reativa com <code>reduce</code>.
+      </div>
+    </div>
+
+    <!-- ==========================================
+         SLIDE 5: 2. FUNCIONALIDADES — VITRINE E SACOLA
+         ========================================== -->
+    <div class="slide" data-slide="5">
+      <div>
+        <span class="slide-badge"><i class="bi bi-cart3"></i> Tópico 2 • Funcionalidades</span>
+        <h2 class="slide-title">Vitrine, Sacola &amp; Persistência: <code>CartEngine</code></h2>
+        <p class="slide-subtitle">Filtros de categoria sem reload e armazenamento seguro em <code>UrbanStorage</code>.</p>
+      </div>
+
+      <div class="row g-3 align-items-center my-auto">
+        <div class="col-md-7">
+          <div class="code-box">
+<span class="code-comment">// 1. Adição e controle de quantidade</span>
+<span class="code-func">adicionarItem</span>(<span class="code-var">nome</span>, <span class="code-var">preco</span>) {
+  <span class="code-keyword">const</span> <span class="code-var">item</span> = <span class="code-keyword">this</span>.sacola.<span class="code-func">find</span>(<span class="code-var">i</span> =&gt; <span class="code-var">i</span>.nome === <span class="code-var">nome</span>);
+  <span class="code-keyword">if</span> (<span class="code-var">item</span>) { <span class="code-var">item</span>.quantidade += <span class="code-string">1</span>; }
+  <span class="code-keyword">else</span> { <span class="code-keyword">this</span>.sacola.<span class="code-func">push</span>({ <span class="code-var">nome</span>, <span class="code-var">preco</span>, quantidade: <span class="code-string">1</span> }); }
+  <span class="code-keyword">this</span>.<span class="code-func">salvarSacola</span>();
+  <span class="code-func">showToast</span>(<span class="code-string">`"\${nome}" adicionado à sacola!`</span>);
+},
+
+<span class="code-comment">// 2. Cálculo acumulado do pedido</span>
+<span class="code-func">calcularTotal</span>() {
+  <span class="code-keyword">return</span> <span class="code-keyword">this</span>.sacola.<span class="code-func">reduce</span>((<span class="code-var">acc</span>, <span class="code-var">i</span>) =&gt; <span class="code-var">acc</span> + (<span class="code-var">i</span>.preco * <span class="code-var">i</span>.quantidade), <span class="code-string">0</span>);
+}
+          </div>
+        </div>
+
+        <div class="col-md-5">
+          <div class="feature-card p-3 d-flex flex-column gap-2">
+            <h6 class="text-white fw-bold m-0">Recursos Implementados:</h6>
+            <div class="small">
+              <strong class="text-accent">• Filtro Dinâmico:</strong>
+              <span class="text-secondary d-block">Alternância entre <em>Todos</em>, <em>Barba</em>, <em>Cabelo</em> e <em>Modeladores</em> via <code>data-categoria</code>.</span>
+            </div>
+            <div class="small">
+              <strong class="text-accent">• Modal com Contador:</strong>
+              <span class="text-secondary d-block">Badge atualizado no topo de todas as páginas e ajuste de itens (+ / -).</span>
+            </div>
+            <div class="small">
+              <strong class="text-accent">• Persistência e Seed Data:</strong>
+              <span class="text-secondary d-block">O <code>UrbanStorage</code> injeta agendamentos de exemplo se o LocalStorage estiver vazio.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-muted small border-top border-secondary pt-2">
+        Padrão: Clean Code com métodos independentes e encapsulamento de estado.
+      </div>
+    </div>
+
+    <!-- ==========================================
+         SLIDE 6: 3. JUSTIFICATIVA DAS DECISÕES DE UX (PARTE 1)
+         ========================================== -->
+    <div class="slide" data-slide="6">
+      <div>
+        <span class="slide-badge"><i class="bi bi-person-heart"></i> Tópico 3 • Decisões de UX</span>
+        <h2 class="slide-title">Justificativa das Decisões de UX: Usabilidade</h2>
+        <p class="slide-subtitle">Aplicação prática das Heurísticas de Jakob Nielsen para uma experiência intuitiva.</p>
+      </div>
+
+      <div class="row g-3 my-auto">
+        <div class="col-md-4">
+          <div class="feature-card p-3">
+            <div class="fs-2 text-accent mb-1"><i class="bi bi-shield-slash"></i></div>
+            <h6 class="text-white fw-bold">Prevenção de Erros</h6>
+            <small class="text-accent">Heurística #5 de Nielsen</small>
+            <p class="text-secondary small mt-2">
+              Em vez de permitir digitação livre de horários (que causaria conflitos e formatos errados), o usuário escolhe slots pré-calculados. Horários ocupados tornam-se inativos.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="feature-card p-3">
+            <div class="fs-2 text-accent mb-1"><i class="bi bi-bell"></i></div>
+            <h6 class="text-white fw-bold">Feedback Imediato</h6>
+            <small class="text-accent">Heurística #1 de Nielsen</small>
+            <p class="text-secondary small mt-2">
+              Notificações flutuantes (*Toasts*) e badges visuais coloridos informam o cliente sobre o sucesso do agendamento ou inserção de cosméticos na sacola sem travar a navegação.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="feature-card p-3">
+            <div class="fs-2 text-accent mb-1"><i class="bi bi-lightning-charge"></i></div>
+            <h6 class="text-white fw-bold">Eficiência para o Gestor</h6>
+            <small class="text-accent">Heurística #7 de Nielsen</small>
+            <p class="text-secondary small mt-2">
+              Menu de ações rápidas no painel do proprietário permitindo concluir ou cancelar atendimentos com apenas 1 clique, sem recarregar ou navegar entre telas.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-muted small border-top border-secondary pt-2">
+        Objetivo de UX: Eliminar esforço cognitivo do cliente e acelerar a tomada de decisão.
+      </div>
+    </div>
+
+    <!-- ==========================================
+         SLIDE 7: 3. JUSTIFICATIVA DAS DECISÕES DE UX (PARTE 2)
+         ========================================== -->
+    <div class="slide" data-slide="7">
+      <div>
+        <span class="slide-badge"><i class="bi bi-palette"></i> Tópico 3 • Decisões de UX</span>
+        <h2 class="slide-title">Justificativa das Decisões de UX: Estética &amp; Assets</h2>
+        <p class="slide-subtitle">Design emocional, paleta Black &amp; Gold e estabilidade visual total.</p>
+      </div>
+
+      <div class="row g-3 my-auto">
+        <div class="col-md-4">
+          <div class="feature-card text-center p-3">
+            <div style="width: 40px; height: 40px; background: var(--accent); border-radius: 50%; margin: 0 auto 10px auto; box-shadow: 0 0 14px var(--accent-glow);"></div>
+            <h6 class="text-white fw-bold">Paleta Black &amp; Gold</h6>
+            <small class="text-muted"><code>#0A0B0E</code> &amp; <code>#E2B13C</code></small>
+            <p class="text-secondary small mt-2">
+              O visual escuro com detalhes dourados remete a sofisticação, visagismo e autoridade, conectando-se diretamente com o público da barbearia de elite.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="feature-card text-center p-3">
+            <div class="fs-2 text-accent mb-1"><i class="bi bi-eye"></i></div>
+            <h6 class="text-white fw-bold">Contraste &amp; Legibilidade</h6>
+            <small class="text-muted">Tabelas e Cards Blindados</small>
+            <p class="text-secondary small mt-2">
+              Correção de estilos padrão do framework com cores contrastantes para garantir que nomes, horários, preços e badges sejam perfeitamente visíveis em qualquer tela.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="feature-card text-center p-3">
+            <div class="fs-2 text-accent mb-1"><i class="bi bi-images"></i></div>
+            <h6 class="text-white fw-bold">Assets 100% Locais</h6>
+            <small class="text-muted"><code>logo.svg</code> + <code>images/</code></small>
+            <p class="text-secondary small mt-2">
+              Criação de logotipo vetorial nativo em SVG e download de 10 fotografias locais em alta definição, garantindo carregamento instantâneo sem depender de links externos.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-muted small border-top border-secondary pt-2">
+        Resultado: Estética de luxo com zero quebra visual e alta confiabilidade técnica.
+      </div>
+    </div>
+
+    <!-- ==========================================
+         SLIDE 8: CONCLUSÃO & DEMONSTRAÇÃO DO SISTEMA
+         ========================================== -->
+    <div class="slide" data-slide="8">
+      <div>
+        <span class="slide-badge"><i class="bi bi-check-all"></i> Síntese &amp; Demonstração</span>
+        <h2 class="slide-title">Conclusão &amp; Resultados Alcançados</h2>
+        <p class="slide-subtitle">Validação prática dos objetivos do projeto em ambiente real.</p>
+      </div>
+
+      <div class="row g-3 my-auto">
+        <div class="col-md-6">
+          <div class="feature-card p-3">
+            <h6 class="text-white fw-bold mb-2 d-flex align-items-center gap-2">
+              <i class="bi bi-check-circle-fill text-accent"></i> Síntese Técnica
+            </h6>
+            <ul class="text-secondary small d-flex flex-column gap-1 mb-0 ps-3">
+              <li><strong>Clean Code:</strong> Estrutura em módulos claros (Storage, Calendar, Cart, Dashboard).</li>
+              <li><strong>Manipulação do DOM:</strong> Atualização de componentes e badges sem refresh.</li>
+              <li><strong>Sincronização Reativa:</strong> O agendamento do cliente reflete no painel do gestor.</li>
+              <li><strong>Design System Completo:</strong> Componentes estilizados com consistência visual.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="feature-card p-3 text-center d-flex flex-column justify-content-center">
+            <h5 class="text-white fw-bold mb-1">Demonstração Prática</h5>
+            <p class="text-secondary small mb-3">
+              Realização de agendamento no Portal do Cliente e conferência simultânea no Painel do Proprietário:
+            </p>
+            <div class="d-flex justify-content-center gap-2">
+              <a href="index.html" target="_blank" class="btn btn-warning btn-sm fw-bold text-dark px-3 py-1.5">
+                <i class="bi bi-box-arrow-up-right me-1"></i> Abrir Portal
+              </a>
+              <a href="dashboard.html" target="_blank" class="btn btn-outline-warning btn-sm fw-bold px-3 py-1.5">
+                <i class="bi bi-speedometer2 me-1"></i> Abrir Painel
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary">
+        <span class="text-muted small">Autores: Marlon Gabriel Alves Ferreira e Erick Rafael Passos</span>
+        <span class="text-accent fw-bold small">Urban Cut Barbearia • LPW 2026/2</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Barra Inferior de Controle da Apresentação -->
+  <footer class="slide-footer-controls">
+    <div class="d-flex align-items-center gap-2">
+      <button class="btn-slide-nav" id="btnPrev"><i class="bi bi-arrow-left"></i> Anterior</button>
+      <button class="btn-slide-nav" id="btnNext">Próximo <i class="bi bi-arrow-right"></i></button>
+      <span class="text-muted small ms-2" id="slideIndicator">Slide 1 de 8</span>
+    </div>
+
+    <div class="d-flex align-items-center gap-2">
+      <button class="btn btn-sm btn-dark border-secondary text-white py-1 px-3" id="btnFullscreen" title="Tela Cheia">
+        <i class="bi bi-fullscreen me-1"></i> Tela Cheia
+      </button>
+    </div>
+  </footer>
+
+  <!-- Script de Navegação -->
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 8;
+
+    const slides = document.querySelectorAll('.slide');
+    const progressFill = document.getElementById('progressFill');
+    const slideIndicator = document.getElementById('slideIndicator');
+
+    function updateSlide(newIndex) {
+      if (newIndex < 1 || newIndex > totalSlides) return;
+
+      slides.forEach(s => s.classList.remove('active'));
+      currentSlide = newIndex;
+
+      const activeSlide = document.querySelector(`.slide[data-slide="${currentSlide}"]`);
+      if (activeSlide) {
+        activeSlide.classList.add('active');
+      }
+
+      const percent = (currentSlide / totalSlides) * 100;
+      progressFill.style.width = percent + '%';
+      slideIndicator.textContent = `Slide ${currentSlide} de ${totalSlides}`;
+    }
+
+    document.getElementById('btnPrev').addEventListener('click', () => updateSlide(currentSlide - 1));
+    document.getElementById('btnNext').addEventListener('click', () => updateSlide(currentSlide + 1));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        updateSlide(currentSlide + 1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'Backspace') {
+        e.preventDefault();
+        updateSlide(currentSlide - 1);
+      } else if (e.key.toLowerCase() === 'f') {
+        toggleFullscreen();
+      }
+    });
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+    document.getElementById('btnFullscreen').addEventListener('click', toggleFullscreen);
+
+    updateSlide(1);
+  </script>
+</body>
+</html>
